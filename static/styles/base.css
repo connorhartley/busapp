@@ -1,10 +1,14 @@
+/**************************************************************************
+ * Base Styles - Styles for the app that don't add to the overall design.
+ **************************************************************************/
+
 /*
- * Base Styles
+ * Normalize Styles
  *
- * These styles implement the base styles.
+ * These styles are set to normalize browser defaults.
  *
  * @author Connor Hartley
- * @version 0.0.1
+ * @version 0.0.2
  */
 
 body {
@@ -24,68 +28,17 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbbc74', endColorstr='#4c4483', GradientType=1 );
 }
 
+/*
+ * Foundation Styles
+ *
+ * These styles are set as the foundation of the app to
+ * build upon and are used to anchor VueJS.
+ *
+ * @author Connor Hartley
+ * @version 0.0.2
+ */
+
 #app {
   height: 92.55vh;
   width: 100vw;
-}
-
-/*
- * Plate Styles
- *
- * These styles are for a container called a plate.
- *
- * @author Connor Hartley
- * @version 0.0.1
- */
-
-.solid-plate {
-  height: 83vh;
-  width: 85vw;
-
-  margin: 7.5vh auto 0 auto;
-
-  border: 1px solid rgba(255, 255, 255, 1);
-  border-radius: 3px;
-
-  box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.15);
-
-  background: rgba(255, 255, 255, 1);
-}
-
-/*
- * Plate Section Styles
- *
- * These styles are specific to the inside of the plate element.
- *
- * @author Connor Hartley
- * @version 0.0.1
- */
-
-.plate-navigation {
-  height: 11.5vh;
-  width: 100%;
-
-  border: 0px solid rgba(255, 255, 255, 255);
-  border-radius: 3px 3px 0px 0px;
-
-  background: rgba(76, 68, 131, 1);
-}
-
-.plate-content {
-  height: 60vh;
-  width: 100%;
-
-  border: 0px solid rgba(255, 255, 255, 255);
-
-  background: rgba(255, 255, 255, 1);
-}
-
-.plate-footer {
-  height: 11.5vh;
-  width: 100%;
-
-  border: 0px solid rgba(255, 255, 255, 255);
-  border-radius: 0px 0px 3px 3px;
-
-  background: rgba(76, 68, 131, 1);
 }
