@@ -32,7 +32,7 @@
  * These styles are specific to the inside of the plate element.
  *
  * @author Connor Hartley
- * @version 0.0.2
+ * @version 0.0.3
  */
 
 .plate-navigation {
@@ -42,7 +42,7 @@
   border: 0px solid rgba(255, 255, 255, 255);
   border-radius: 3px 3px 0px 0px;
 
-  background: rgba(76, 68, 131, 1);
+  background: rgba(50, 54, 64, 1);
 }
 
 .plate-content {
@@ -61,5 +61,5 @@
   border: 0px solid rgba(255, 255, 255, 255);
   border-radius: 0px 0px 3px 3px;
 
-  background: rgba(76, 68, 131, 1);
+  background: rgba(50, 54, 64, 1);
 }
