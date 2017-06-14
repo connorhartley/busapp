@@ -9884,6 +9884,8 @@ module.exports = Vue$3;
 
 var Vue = require('vue');
 
+
+
 // Templates
 //
 // Templates for specific components with data
@@ -9893,38 +9895,10 @@ var Vue = require('vue');
 // @version 0.0.3
 
 // Navigation Plate
-var templateNavigationPlate =
-`<div class="plate-navigation navigation">
-  <a href="#"><div class="navigation-brand">
-    <img src="./dist/images/bus-small.png">
-  </div></a>
-
-  <div class="navigation-menu">
-    <a href="#"><div class="menu-element bg-primary">
-      Select
-    </div></a>
-
-    <a href="#"><div class="menu-element">
-      Timetable
-    </div></a>
-
-    <a href="#"><div class="menu-element">
-      Account
-    </div></a>
-  </div>
-</div>`;
+var templateNavigationPlate = "<div class=\"plate-navigation navigation\">\r\n  <a href=\"#\"><div class=\"navigation-brand\">\r\n    <img src=\"./dist/images/bus-small.png\">\r\n  </div></a>\r\n\r\n  <div class=\"navigation-menu\">\r\n    <a href=\"#\"><div class=\"menu-element bg-primary\">\r\n      Select\r\n    </div></a>\r\n\r\n    <a href=\"#\"><div class=\"menu-element\">\r\n      Timetable\r\n    </div></a>\r\n\r\n    <a href=\"#\"><div class=\"menu-element\">\r\n      Account\r\n    </div></a>\r\n  </div>\r\n</div>\r\n";
 
 // Footer Plate
-var templateFooterPlate =
-`<div class="plate-footer footer">
-  <a href="#"><div class="menu-element">
-    Previous
-  </div></a>
-
-  <a href="#"><div class="menu-element">
-    Next
-  </div></a>
-</div>`;
+var templateFooterPlate = "<div class=\"plate-footer footer\">\r\n  <a href=\"#\"><div class=\"menu-element\">\r\n    Previous\r\n  </div></a>\r\n\r\n  <a href=\"#\"><div class=\"menu-element\">\r\n    Next\r\n  </div></a>\r\n</div>\r\n";
 
 // Components
 //
