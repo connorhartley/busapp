@@ -3,6 +3,14 @@
 
 Bus app that uses VueJS.
 
+## Run
+
+Simply bundle the project with browserify (globally installed):
+
+`npm run bundle`
+
+Then, open the index file in a browser.
+
 ## Todo List
 
 By 17/06/2017
