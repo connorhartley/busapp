@@ -8,50 +8,23 @@
 
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" type="text/css">
 
-    <link rel="stylesheet" href="./static/styles/base.css" type="text/css">
-    <link rel="stylesheet" href="./static/styles/layout.css" type="text/css">
-    <link rel="stylesheet" href="./static/styles/app.css" type="text/css">
+    <link rel="stylesheet" href="./dist/styles/base.css" type="text/css">
+    <link rel="stylesheet" href="./dist/styles/layout.css" type="text/css">
+    <link rel="stylesheet" href="./dist/styles/app.css" type="text/css">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
   </head>
   <body>
     <div id="app">
       <div class="solid-plate">
-        <div class="plate-navigation navigation">
-          <a href="#"><div class="navigation-brand">
-            <img src="./static/images/bus-small.png">
-          </div></a>
-
-          <div class="navigation-menu">
-            <a href="#"><div class="menu-element bg-primary">
-              Select
-            </div></a>
-
-            <a href="#"><div class="menu-element">
-              Timetable
-            </div></a>
-
-            <a href="#"><div class="menu-element">
-              Account
-            </div></a>
-          </div>
-        </div>
+        <navigation-plate></navigation-plate>
 
         <div class="plate-content"></div>
 
-        <div class="plate-footer footer">
-          <a href="#"><div class="menu-element">
-            Previous
-          </div></a>
-
-          <a href="#"><div class="menu-element">
-            Next
-          </div></a>
-        </div>
+        <footer-plate></footer-plate>
       </div>
     </div>
 
-    <script src="https://unpkg.com/vue"></script>
-    <script src="./static/scripts/app.js"></script>
+    <script src="./dist/scripts/app.js"></script>
   </body>
 </html>
