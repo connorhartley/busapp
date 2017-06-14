@@ -9,7 +9,7 @@
  * navigation container.
  *
  * @author Connor Hartley
- * @version 0.0.2
+ * @version 0.0.3
  */
 
 .navigation {
@@ -68,7 +68,47 @@
 
 .menu-element {
   height: 11.5vh;
-  width: 100px;
+  width: 150px;
+
+  /* For center alignment of the button text. */
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+
+  /* Text Styles */
+  color: white;
+  text-align: center;
+}
+
+/*
+ * Footer Styles
+ *
+ * These styles are for the elements inside the
+ * footer container.
+ *
+ * @author Connor Hartley
+ * @version 0.0.1
+ */
+
+.footer {
+  height: 11.5vh;
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+ }
+
+.footer a:hover {
+  filter: brightness(0.65);
+}
+
+.footer-element {
+  height: 11.5vh;
+  width: 150px;
 
   /* For center alignment of the button text. */
   display: flex;
