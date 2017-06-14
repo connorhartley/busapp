@@ -169,6 +169,10 @@ process.off = noop;
 process.removeListener = noop;
 process.removeAllListeners = noop;
 process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
@@ -9895,7 +9899,7 @@ var Vue = require('vue');
 // @version 0.0.3
 
 // Navigation Plate
-var templateNavigationPlate = "<div class=\"plate-navigation navigation\">\r\n  <a href=\"#\"><div class=\"navigation-brand\">\r\n    <img src=\"./dist/images/bus-small.png\">\r\n  </div></a>\r\n\r\n  <div class=\"navigation-menu\">\r\n    <a href=\"#\"><div class=\"menu-element bg-primary\">\r\n      Select\r\n    </div></a>\r\n\r\n    <a href=\"#\"><div class=\"menu-element\">\r\n      Timetable\r\n    </div></a>\r\n\r\n    <a href=\"#\"><div class=\"menu-element\">\r\n      Account\r\n    </div></a>\r\n  </div>\r\n</div>\r\n";
+var templateNavigationPlate = "<div class=\"plate-navigation navigation\">\r\n  <a href=\"#\"><div class=\"navigation-brand\">\r\n    <img src=\"./images/bus-small.png\">\r\n  </div></a>\r\n\r\n  <div class=\"navigation-menu\">\r\n    <a href=\"#\"><div class=\"menu-element bg-primary\">\r\n      Select\r\n    </div></a>\r\n\r\n    <a href=\"#\"><div class=\"menu-element\">\r\n      Timetable\r\n    </div></a>\r\n\r\n    <a href=\"#\"><div class=\"menu-element\">\r\n      Account\r\n    </div></a>\r\n  </div>\r\n</div>\r\n";
 
 // Footer Plate
 var templateFooterPlate = "<div class=\"plate-footer footer\">\r\n  <a href=\"#\"><div class=\"menu-element\">\r\n    Previous\r\n  </div></a>\r\n\r\n  <a href=\"#\"><div class=\"menu-element\">\r\n    Next\r\n  </div></a>\r\n</div>\r\n";
