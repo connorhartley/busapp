@@ -4,7 +4,8 @@
   "description": "Third attempt at a bus timetable app.",
   "main": "index.html",
   "scripts": {
-    "bundle": "browserify -t brfs src/app.js > dist/scripts/bundle.js"
+    "bundle": "browserify -t brfs src/app.js > dist/scripts/bundle.js",
+    "deploy": "npm run bundle && gh-pages -d dist"
   },
   "repository": "https://github.com/connorhartley/busapp-3",
   "author": "Connor Hartley <vectrixu@gmail.com>",
@@ -15,5 +16,8 @@
   "dependencies": {
     "brfs": "^1.4.3",
     "vue": "^2.3.4"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.0.0"
   }
 }
