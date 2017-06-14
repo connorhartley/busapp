@@ -4,16 +4,16 @@
   </div></a>
 
   <div class="navigation-menu">
-    <a href="#"><div class="menu-element bg-primary">
-      Select
+    <a href="#"><div class="menu-element" v-bind:class="{ 'bg-primary': pages[0].isActive }" v-on:click="changeTab(0)">
+      {{ pages[0].displayText }}
     </div></a>
 
-    <a href="#"><div class="menu-element">
-      Timetable
+    <a href="#"><div class="menu-element" v-bind:class="{ 'bg-primary': pages[1].isActive }" v-on:click="changeTab(1)">
+      {{ pages[1].displayText }}
     </div></a>
 
-    <a href="#"><div class="menu-element">
-      Account
+    <a href="#"><div class="menu-element" v-bind:class="{ 'bg-primary': pages[2].isActive }" v-on:click="changeTab(2)">
+      {{ pages[2].displayText }}
     </div></a>
   </div>
 </div>

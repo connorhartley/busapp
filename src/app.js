@@ -32,7 +32,42 @@ var templateFooterPlate = fs.readFileSync(__dirname + '/templates/footer-plate.h
 
 // Navigation Plate
 Vue.component('navigation-plate', {
-  template: templateNavigationPlate
+  template: templateNavigationPlate,
+  data: function() {
+    return {
+      pageIndex: 0,
+
+      pages: [
+        {
+          text: 'select',
+          displayText: 'Select',
+          isActive: true
+        },
+        {
+          text: 'timetable',
+          displayText: 'Timetable',
+          isActive: false
+        },
+        {
+          text: 'account',
+          displayText: 'Account',
+          isActive: false
+        },
+      ],
+    }
+  },
+  methods: {
+    changeTab: function (to) {
+      if (!this.pages[to].isActive) {
+        this.pages[this.pageIndex].isActive = false;
+
+        this.pages[to].isActive = true;
+        this.pageIndex = to;
+
+        this.$emit('updatePage')
+      }
+    }
+  }
 });
 
 // Footer Plate
