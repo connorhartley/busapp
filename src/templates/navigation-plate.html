@@ -5,15 +5,15 @@
 
   <div class="navigation-menu">
     <a href="#"><div class="menu-element" v-bind:class="{ 'bg-primary': pages[0].isActive }" v-on:click="changeTab(0)">
-      {{ pages[0].displayText }}
+      {{ pages[0].displayId }}
     </div></a>
 
     <a href="#"><div class="menu-element" v-bind:class="{ 'bg-primary': pages[1].isActive }" v-on:click="changeTab(1)">
-      {{ pages[1].displayText }}
+      {{ pages[1].displayId }}
     </div></a>
 
     <a href="#"><div class="menu-element" v-bind:class="{ 'bg-primary': pages[2].isActive }" v-on:click="changeTab(2)">
-      {{ pages[2].displayText }}
+      {{ pages[2].displayId }}
     </div></a>
   </div>
 </div>
