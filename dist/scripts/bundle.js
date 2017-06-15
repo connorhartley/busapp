@@ -12354,9 +12354,9 @@ module.exports = Vue$3;
  * Router Script - The script which manages the router.
  *************************************************************/
 
+var VueRouter = require('vue-router');
 
 
-var vuerouter = require('vue-router');
 
 // Templates
 //
@@ -12366,8 +12366,8 @@ var vuerouter = require('vue-router');
 // @author Connor Hartley
 // @version 0.0.1
 
-// Content Test
-var templateContentTest = "<p>Test</p>\r\n";
+// Content Dashboard
+var templateContentTest = "<div class=\"dashboard\">\r\n  <!-- Dashboard items. -->\r\n</div>\r\n";
 
 // Components
 //
@@ -12389,7 +12389,7 @@ var contentTest = {
 // @author Connor Hartley
 // @version 0.0.1
 
-var router = new vuerouter({
+var router = new VueRouter({
   routes: [
     {
       path: '/',
@@ -12409,8 +12409,8 @@ module.exports = router;
 
 // General Imports
 
-var vue = require('vue');
-var vuerouter = require('vue-router');
+var Vue = require('vue');
+var VueRouter = require('vue-router');
 
 
 
@@ -12442,7 +12442,7 @@ var templateFooterPlate = "<div class=\"plate-footer footer\">\r\n  <a href=\"#\
 // @version 0.0.4
 
 // Navigation Plate
-vue.component('navigation-plate', {
+Vue.component('navigation-plate', {
   template: templateNavigationPlate,
   props: [ 'page-index', 'pages' ],
   methods: {
@@ -12455,20 +12455,20 @@ vue.component('navigation-plate', {
 
 // Content Plate
 
-vue.component('content-plate', {
+Vue.component('content-plate', {
   template: templateContentPlate
 });
 
 // Footer Plate
-vue.component('footer-plate', {
+Vue.component('footer-plate', {
   template: templateFooterPlate
 });
 
 // VueJS Base
 
-vue.use(vuerouter);
+Vue.use(VueRouter);
 
-new vue({
+new Vue({
   el: '#app',
   router: router,
   data: function () {

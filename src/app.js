@@ -4,8 +4,8 @@
 
 // General Imports
 
-var vue = require('vue');
-var vuerouter = require('vue-router');
+var Vue = require('vue');
+var VueRouter = require('vue-router');
 
 var fs = require('fs');
 
@@ -37,7 +37,7 @@ var templateFooterPlate = fs.readFileSync(__dirname + '/templates/footer-plate.h
 // @version 0.0.4
 
 // Navigation Plate
-vue.component('navigation-plate', {
+Vue.component('navigation-plate', {
   template: templateNavigationPlate,
   props: [ 'page-index', 'pages' ],
   methods: {
@@ -50,20 +50,20 @@ vue.component('navigation-plate', {
 
 // Content Plate
 
-vue.component('content-plate', {
+Vue.component('content-plate', {
   template: templateContentPlate
 });
 
 // Footer Plate
-vue.component('footer-plate', {
+Vue.component('footer-plate', {
   template: templateFooterPlate
 });
 
 // VueJS Base
 
-vue.use(vuerouter);
+Vue.use(VueRouter);
 
-new vue({
+new Vue({
   el: '#app',
   router: router,
   data: function () {

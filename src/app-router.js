@@ -2,9 +2,9 @@
  * Router Script - The script which manages the router.
  *************************************************************/
 
-var fs = require('fs');
+var VueRouter = require('vue-router');
 
-var vuerouter = require('vue-router');
+var fs = require('fs');
 
 // Templates
 //
@@ -14,8 +14,8 @@ var vuerouter = require('vue-router');
 // @author Connor Hartley
 // @version 0.0.1
 
-// Content Test
-var templateContentTest = fs.readFileSync(__dirname + '/templates/content/content-test.html', 'utf8');
+// Content Dashboard
+var templateContentTest = fs.readFileSync(__dirname + '/templates/content/content-dashboard.html', 'utf8');
 
 // Components
 //
@@ -37,7 +37,7 @@ var contentTest = {
 // @author Connor Hartley
 // @version 0.0.1
 
-var router = new vuerouter({
+var router = new VueRouter({
   routes: [
     {
       path: '/',
