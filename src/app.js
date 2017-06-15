@@ -28,7 +28,7 @@ var templateFooterPlate = fs.readFileSync(__dirname + '/templates/footer-plate.h
 // and states, each connected to a template.
 //
 // @author Connor Hartley
-// @version 0.0.1
+// @version 0.0.3
 
 // Navigation Plate
 Vue.component('navigation-plate', {
