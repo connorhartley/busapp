@@ -1,13 +1,13 @@
 {
-  "name": "busapp-3",
+  "name": "busapp",
   "version": "1.0.0",
-  "description": "Third attempt at a bus timetable app.",
+  "description": "A bus timetable web app for horizons.",
   "main": "index.html",
   "scripts": {
     "bundle": "browserify -t brfs src/app.js > dist/scripts/bundle.js",
     "deploy": "npm run bundle && gh-pages -d dist"
   },
-  "repository": "https://github.com/connorhartley/busapp-3",
+  "repository": "https://github.com/connorhartley/busapp",
   "author": "Connor Hartley <vectrixu@gmail.com>",
   "license": "MIT",
   "browser": {
