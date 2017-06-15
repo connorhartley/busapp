@@ -5,6 +5,8 @@
 // General Imports
 
 var vue = require('vue');
+var vuerouter = require('vue-router');
+
 var fs = require('fs');
 
 var router = require('./app-router');
@@ -39,6 +41,7 @@ vue.component('navigation-plate', {
   template: templateNavigationPlate,
   props: [ 'page-index', 'pages' ],
   methods: {
+    // Function for changing the menu tab. Emits an event to update content.
     changeTab: function (to) {
       this.$emit('update:pageIndex', to);
     }
@@ -58,9 +61,11 @@ vue.component('footer-plate', {
 
 // VueJS Base
 
+vue.use(vuerouter);
+
 new vue({
   el: '#app',
-  router,
+  router: router,
   data: function () {
     return {
       pageIndex: 0,
