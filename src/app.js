@@ -4,9 +4,10 @@
 
 // General Imports
 
-var Vue = require('vue');
-
+var vue = require('vue');
 var fs = require('fs');
+
+var router = require('./app-router');
 
 // Templates
 //
@@ -18,6 +19,9 @@ var fs = require('fs');
 
 // Navigation Plate
 var templateNavigationPlate = fs.readFileSync(__dirname + '/templates/navigation-plate.html', 'utf8');
+
+// Content Plate
+var templateContentPlate = fs.readFileSync(__dirname + '/templates/content-plate.html', 'utf8');
 
 // Footer Plate
 var templateFooterPlate = fs.readFileSync(__dirname + '/templates/footer-plate.html', 'utf8');
@@ -31,7 +35,7 @@ var templateFooterPlate = fs.readFileSync(__dirname + '/templates/footer-plate.h
 // @version 0.0.4
 
 // Navigation Plate
-Vue.component('navigation-plate', {
+vue.component('navigation-plate', {
   template: templateNavigationPlate,
   props: [ 'page-index', 'pages' ],
   methods: {
@@ -41,15 +45,22 @@ Vue.component('navigation-plate', {
   }
 });
 
+// Content Plate
+
+vue.component('content-plate', {
+  template: templateContentPlate
+});
+
 // Footer Plate
-Vue.component('footer-plate', {
+vue.component('footer-plate', {
   template: templateFooterPlate
 });
 
 // VueJS Base
 
-new Vue({
+new vue({
   el: '#app',
+  router,
   data: function () {
     return {
       pageIndex: 0,
@@ -80,7 +91,7 @@ new Vue({
     }
   },
   methods: {
-    // Updates the content for children components due to a page change.
+    // Updates the content for children components due to a page index change.
     updatePage: function (to, from) {
       if (!this.pages[to].isActive) {
         this.pages[from].isActive = false;

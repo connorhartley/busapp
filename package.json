@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "brfs": "^1.4.3",
-    "vue": "^2.3.4"
+    "vue": "^2.3.4",
+    "vue-router": "^2.5.3"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0"
