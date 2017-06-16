@@ -12367,7 +12367,7 @@ var VueRouter = require('vue-router');
 // @version 0.0.1
 
 // Content Dashboard
-var templateContentDash = "<div class=\"dashboard\">\r\n  This is a Dashboard\r\n</div>\r\n";
+var templateContentDash = "<div class=\"dashboard\">\r\n  <div class=\"originContainer\">\r\n    This is the container for setting the origin location.\r\n  </div>\r\n  <div class=\"destinationContainer\">\r\n    This is the container for setting the destination location.\r\n  </div>\r\n</div>\r\n";
 
 // Content Timetable
 var templateContentTimetable = "<div class=\"timetable\">\r\n  This is a Timetable\r\n</div>\r\n";
@@ -12450,13 +12450,13 @@ var router = require('./app-router');
 // @version 0.0.3
 
 // Navigation Plate
-var templateNavigationPlate = "<div class=\"plate-navigation navigation\">\r\n  <a href=\"#\"><div class=\"navigation-brand\">\r\n    <img src=\"./images/bus-small.png\">\r\n  </div></a>\r\n\r\n  <div class=\"navigation-menu\">\r\n    <a><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[0].isActive }\" v-on:click=\"changeTab(0)\">\r\n      {{ pages[0].displayId }}\r\n    </div></a>\r\n\r\n    <a><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[1].isActive }\" v-on:click=\"changeTab(1)\">\r\n      {{ pages[1].displayId }}\r\n    </div></a>\r\n\r\n    <a><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[2].isActive }\" v-on:click=\"changeTab(2)\">\r\n      {{ pages[2].displayId }}\r\n    </div></a>\r\n  </div>\r\n</div>\r\n";
+var templateNavigationPlate = "<div class=\"plate-navigation navigation\">\r\n  <a href=\"#\"><div class=\"navigation-brand\">\r\n    <img src=\"./images/bus-small.png\">\r\n  </div></a>\r\n\r\n  <div class=\"navigation-menu\">\r\n    <a><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[0].isActive, 'fg-grey': pages[0].isDeactivated }\" v-on:click=\"changeTab(0)\">\r\n      {{ pages[0].displayId }}\r\n    </div></a>\r\n\r\n    <a><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[1].isActive, 'fg-grey': pages[1].isDeactivated }\" v-on:click=\"changeTab(1)\">\r\n      {{ pages[1].displayId }}\r\n    </div></a>\r\n\r\n    <a><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[2].isActive, 'fg-grey': pages[2].isDeactivated }\" v-on:click=\"changeTab(2)\">\r\n      {{ pages[2].displayId }}\r\n    </div></a>\r\n  </div>\r\n</div>\r\n";
 
 // Content Plate
 var templateContentPlate = "<div class=\"plate-content content\">\r\n  <router-view></router-view>\r\n</div>\r\n";
 
 // Footer Plate
-var templateFooterPlate = "<div class=\"plate-footer footer\">\r\n  <a href=\"#\"><div class=\"menu-element\">\r\n    Previous\r\n  </div></a>\r\n\r\n  <div class=\"menu-element\">\r\n    Made with ❤ by Connor Hartley\r\n  </div>\r\n\r\n  <a href=\"#\"><div class=\"menu-element\">\r\n    Next\r\n  </div></a>\r\n</div>\r\n";
+var templateFooterPlate = "<div class=\"plate-footer footer\">\r\n  <a><div class=\"menu-element\">\r\n    Previous\r\n  </div></a>\r\n\r\n  <div class=\"menu-element\">\r\n    Made with ❤ by Connor Hartley\r\n  </div>\r\n\r\n  <a><div class=\"menu-element\">\r\n    Next\r\n  </div></a>\r\n</div>\r\n";
 
 // Components
 //
@@ -12504,17 +12504,20 @@ new Vue({
         {
           id: 'select',
           displayId: 'Select',
-          isActive: true
+          isActive: true,
+          isDeactivated: false
         },
         {
           id: 'timetable',
           displayId: 'Timetable',
-          isActive: false
+          isActive: false,
+          isDeactivated: false
         },
         {
           id: 'account',
           displayId: 'Account',
-          isActive: false
+          isActive: false,
+          isDeactivated: true
         },
       ],
     }
@@ -12528,7 +12531,7 @@ new Vue({
   methods: {
     // Updates the content for children components due to a page index change.
     updatePage: function (to, from) {
-      if (!this.pages[to].isActive) {
+      if (!this.pages[to].isActive && !this.pages[to].isDeactivated) {
         this.pages[from].isActive = false;
 
         this.pages[to].isActive = true;

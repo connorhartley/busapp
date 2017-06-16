@@ -4,15 +4,15 @@
   </div></a>
 
   <div class="navigation-menu">
-    <a><div class="menu-element" v-bind:class="{ 'bg-primary': pages[0].isActive }" v-on:click="changeTab(0)">
+    <a><div class="menu-element" v-bind:class="{ 'bg-primary': pages[0].isActive, 'fg-grey': pages[0].isDeactivated }" v-on:click="changeTab(0)">
       {{ pages[0].displayId }}
     </div></a>
 
-    <a><div class="menu-element" v-bind:class="{ 'bg-primary': pages[1].isActive }" v-on:click="changeTab(1)">
+    <a><div class="menu-element" v-bind:class="{ 'bg-primary': pages[1].isActive, 'fg-grey': pages[1].isDeactivated }" v-on:click="changeTab(1)">
       {{ pages[1].displayId }}
     </div></a>
 
-    <a><div class="menu-element" v-bind:class="{ 'bg-primary': pages[2].isActive }" v-on:click="changeTab(2)">
+    <a><div class="menu-element" v-bind:class="{ 'bg-primary': pages[2].isActive, 'fg-grey': pages[2].isDeactivated }" v-on:click="changeTab(2)">
       {{ pages[2].displayId }}
     </div></a>
   </div>

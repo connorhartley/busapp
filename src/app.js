@@ -74,17 +74,20 @@ new Vue({
         {
           id: 'select',
           displayId: 'Select',
-          isActive: true
+          isActive: true,
+          isDeactivated: false
         },
         {
           id: 'timetable',
           displayId: 'Timetable',
-          isActive: false
+          isActive: false,
+          isDeactivated: false
         },
         {
           id: 'account',
           displayId: 'Account',
-          isActive: false
+          isActive: false,
+          isDeactivated: true
         },
       ],
     }
@@ -98,7 +101,7 @@ new Vue({
   methods: {
     // Updates the content for children components due to a page index change.
     updatePage: function (to, from) {
-      if (!this.pages[to].isActive) {
+      if (!this.pages[to].isActive && !this.pages[to].isDeactivated) {
         this.pages[from].isActive = false;
 
         this.pages[to].isActive = true;
