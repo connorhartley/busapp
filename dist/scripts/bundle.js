@@ -12367,7 +12367,13 @@ var VueRouter = require('vue-router');
 // @version 0.0.1
 
 // Content Dashboard
-var templateContentTest = "<div class=\"dashboard\">\r\n  <!-- Dashboard items. -->\r\n</div>\r\n";
+var templateContentDash = "<div class=\"dashboard\">\r\n  This is a Dashboard\r\n</div>\r\n";
+
+// Content Timetable
+var templateContentTimetable = "<div class=\"timetable\">\r\n  This is a Timetable\r\n</div>\r\n";
+
+// Content Account
+var templateContentAccount = "<div class=\"account\">\r\n  This is an Account\r\n</div>\r\n";
 
 // Components
 //
@@ -12377,8 +12383,16 @@ var templateContentTest = "<div class=\"dashboard\">\r\n  <!-- Dashboard items. 
 // @author Connor Hartley
 // @version 0.0.1
 
-var contentTest = {
-  template: templateContentTest
+var contentDash = {
+  template: templateContentDash
+}
+
+var contentTimetable = {
+  template: templateContentTimetable
+}
+
+var contentAccount = {
+  template: templateContentAccount
 }
 
 // Router
@@ -12392,8 +12406,19 @@ var contentTest = {
 var router = new VueRouter({
   routes: [
     {
+      name: 'select',
       path: '/',
-      component: contentTest
+      component: contentDash
+    },
+    {
+      name: 'timetable',
+      path: '/timetable',
+      component: contentTimetable
+    },
+    {
+      name: 'account',
+      path: '/account',
+      component: contentAccount
     }
   ]
 });
@@ -12425,7 +12450,7 @@ var router = require('./app-router');
 // @version 0.0.3
 
 // Navigation Plate
-var templateNavigationPlate = "<div class=\"plate-navigation navigation\">\r\n  <a href=\"#\"><div class=\"navigation-brand\">\r\n    <img src=\"./images/bus-small.png\">\r\n  </div></a>\r\n\r\n  <div class=\"navigation-menu\">\r\n    <a href=\"#\"><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[0].isActive }\" v-on:click=\"changeTab(0)\">\r\n      {{ pages[0].displayId }}\r\n    </div></a>\r\n\r\n    <a href=\"#\"><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[1].isActive }\" v-on:click=\"changeTab(1)\">\r\n      {{ pages[1].displayId }}\r\n    </div></a>\r\n\r\n    <a href=\"#\"><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[2].isActive }\" v-on:click=\"changeTab(2)\">\r\n      {{ pages[2].displayId }}\r\n    </div></a>\r\n  </div>\r\n</div>\r\n";
+var templateNavigationPlate = "<div class=\"plate-navigation navigation\">\r\n  <a href=\"#\"><div class=\"navigation-brand\">\r\n    <img src=\"./images/bus-small.png\">\r\n  </div></a>\r\n\r\n  <div class=\"navigation-menu\">\r\n    <a><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[0].isActive }\" v-on:click=\"changeTab(0)\">\r\n      {{ pages[0].displayId }}\r\n    </div></a>\r\n\r\n    <a><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[1].isActive }\" v-on:click=\"changeTab(1)\">\r\n      {{ pages[1].displayId }}\r\n    </div></a>\r\n\r\n    <a><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[2].isActive }\" v-on:click=\"changeTab(2)\">\r\n      {{ pages[2].displayId }}\r\n    </div></a>\r\n  </div>\r\n</div>\r\n";
 
 // Content Plate
 var templateContentPlate = "<div class=\"plate-content content\">\r\n  <router-view></router-view>\r\n</div>\r\n";
@@ -12508,6 +12533,9 @@ new Vue({
 
         this.pages[to].isActive = true;
         this.pageIndex = to;
+
+        // Update the content router view.
+        this.$router.push({ name: this.pages[to].id });
       }
     }
   }

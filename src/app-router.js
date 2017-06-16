@@ -15,7 +15,13 @@ var fs = require('fs');
 // @version 0.0.1
 
 // Content Dashboard
-var templateContentTest = fs.readFileSync(__dirname + '/templates/content/content-dashboard.html', 'utf8');
+var templateContentDash = fs.readFileSync(__dirname + '/templates/content/content-dashboard.html', 'utf8');
+
+// Content Timetable
+var templateContentTimetable = fs.readFileSync(__dirname + '/templates/content/content-timetable.html', 'utf8');
+
+// Content Account
+var templateContentAccount = fs.readFileSync(__dirname + '/templates/content/content-account.html', 'utf8');
 
 // Components
 //
@@ -25,8 +31,16 @@ var templateContentTest = fs.readFileSync(__dirname + '/templates/content/conten
 // @author Connor Hartley
 // @version 0.0.1
 
-var contentTest = {
-  template: templateContentTest
+var contentDash = {
+  template: templateContentDash
+}
+
+var contentTimetable = {
+  template: templateContentTimetable
+}
+
+var contentAccount = {
+  template: templateContentAccount
 }
 
 // Router
@@ -40,8 +54,19 @@ var contentTest = {
 var router = new VueRouter({
   routes: [
     {
+      name: 'select',
       path: '/',
-      component: contentTest
+      component: contentDash
+    },
+    {
+      name: 'timetable',
+      path: '/timetable',
+      component: contentTimetable
+    },
+    {
+      name: 'account',
+      path: '/account',
+      component: contentAccount
     }
   ]
 });

@@ -103,6 +103,9 @@ new Vue({
 
         this.pages[to].isActive = true;
         this.pageIndex = to;
+
+        // Update the content router view.
+        this.$router.push({ name: this.pages[to].id });
       }
     }
   }

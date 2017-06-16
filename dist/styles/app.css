@@ -13,7 +13,7 @@
  */
 
 .navigation {
-  height: 11.5vh;
+  height: 11.4vh;
   width: 100%;
 
   display: flex;
@@ -28,7 +28,7 @@
 }
 
 .navigation-brand {
-  height: 11.5vh;
+  height: 11.4vh;
   width: 200px;
 
   /* For center alignment of the image. */
@@ -46,7 +46,7 @@
 }
 
 .navigation-menu {
-  height: 11.5vh;
+  height: 11.4vh;
   width: 800px;
 
   /* For button columns. */
@@ -67,7 +67,7 @@
  */
 
 .menu-element {
-  height: 11.5vh;
+  height: 11.4vh;
   width: 150px;
 
   /* For center alignment of the button text. */
@@ -92,7 +92,7 @@
  */
 
 .footer {
-  height: 11.5vh;
+  height: 11.4vh;
   width: 100%;
 
   display: flex;
@@ -107,7 +107,7 @@
 }
 
 .footer-element {
-  height: 11.5vh;
+  height: 11.4vh;
   width: 150px;
 
   /* For center alignment of the button text. */
