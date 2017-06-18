@@ -101,14 +101,18 @@ new Vue({
   methods: {
     // Updates the content for children components due to a page index change.
     updatePage: function (to, from) {
-      if (!this.pages[to].isActive && !this.pages[to].isDeactivated) {
-        this.pages[from].isActive = false;
+      if (!this.pages[to].isDeactivated) {
+        if (!this.pages[to].isActive) {
+          this.pages[from].isActive = false;
 
-        this.pages[to].isActive = true;
-        this.pageIndex = to;
+          this.pages[to].isActive = true;
+          this.pageIndex = to;
 
-        // Update the content router view.
-        this.$router.push({ name: this.pages[to].id });
+          // Update the content router view.
+          this.$router.push({ name: this.pages[to].id });
+        }
+      } else {
+        this.pageIndex = from;
       }
     }
   }
