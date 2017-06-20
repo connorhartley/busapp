@@ -11,6 +11,8 @@ var fs = require('fs');
 
 var router = require('./app-router');
 
+var timetable =
+
 // Templates
 //
 // Templates for specific components with data
