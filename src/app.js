@@ -11,7 +11,7 @@ var fs = require('fs');
 
 var router = require('./app-router');
 
-var timetable =
+var timetable = require('./data/timetable');
 
 // Templates
 //
@@ -91,6 +91,8 @@ new Vue({
           isActive: false,
           isDeactivated: true
         },
+
+        busTimetable: timetable, 
       ],
     }
   },

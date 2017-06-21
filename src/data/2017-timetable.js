@@ -515,3 +515,164 @@ var heightsTimesSat = [
 ];
 
 var heightsTimesSun = []; //None
+
+// BUS CLASS
+
+// I have to use classes because my teacher said so ._.
+
+class Bus {
+  constructor(id, name, colour, data) {
+    this.id = id;
+    this.name = name;
+    this.colour = colour;
+
+    if (data instanceof {}) {
+      this.data = data;
+    } else {
+      this.data = { raw: data }
+    }
+  }
+
+  getId() {
+    return this.id;
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  getColour() {
+    return this.colour;
+  }
+
+  getStops() {
+    if (this.data.raw == null) {
+      return this.data.raw[0];
+    } else {
+      return this.data.stops;
+    }
+  }
+
+  getMondayToFriday() {
+    if (this.data.raw == null) {
+      return this.data.raw[1];
+    } else {
+      return this.data.mondayToFriday;
+    }
+  }
+
+  getFinalFriday() {
+    if (this.data.raw == null) {
+      return this.data.raw[2];
+    } else {
+      return this.data.lateFriday;
+    }
+  }
+
+  getSaturday() {
+    if (this.data.raw == null) {
+      return this.data.raw[3];
+    } else {
+      return this.data.saturday;
+    }
+  }
+
+  getSunday() {
+    if (this.data.raw == null) {
+      return this.data.raw[4];
+    } else {
+      return this.data.sunday;
+    }
+  }
+}
+
+// MODULE EXPORT
+
+var table = [
+  ["awapuni", "Awapuni", "#FFF", {
+    stops: awapuniStops,
+    mondayToFriday: awapuniTimesMonFri,
+    lateFriday: awapuniTimesFri,
+    saturday: awapuniTimesSat,
+    sunday: awapuniTimesSun
+  }],
+  ["rubgy", "Rugby", "#FFF", {
+    stops: rugbyStops,
+    mondayToFriday: rubgyTimesMonFri,
+    lateFriday: rugbyTimesFri,
+    saturday: rugbyTimesSat,
+    sunday: rugbyTimesSun
+  }],
+  ["highbury", "Highbury", "#FFF", {
+    stops: highburyStops,
+    mondayToFriday: highburyTimesMonFri,
+    lateFriday: highburyTimesFri,
+    saturday: highburyTimesSat,
+    sunday: highburyTimesSun
+  }],
+  ["takaro", "Takaro", "#FFF", {
+    stops: takaroStops,
+    mondayToFriday: takaroTimesMonFri,
+    lateFriday: takaroTimesFri,
+    saturday: takaroTimesSat,
+    sunday: takaroTimesSun
+  }],
+  ["cloverlea", "Cloverlea", "#FFF", {
+    stops: cloverleaStops,
+    mondayToFriday: cloverleaTimesMonFri,
+    lateFriday: cloverleaTimesFri,
+    saturday: cloverleaTimesSat,
+    sunday: cloverleaTimesSun
+  }],
+  ["milson", "Milson", "#FFF", {
+    stops: milsonStops,
+    mondayToFriday: milsonTimesMonFri,
+    lateFriday: milsonTimesFri,
+    saturday: milsonTimesSat,
+    sunday: milsonTimesSun
+  }],
+  ["rhodes", "Rhodes", "#FFF", {
+    stops: rhodesStops,
+    mondayToFriday: rhodesTimesMonFri,
+    lateFriday: rhodesTimesFri,
+    saturday: rhodesTimesSat,
+    sunday: rhodesTimesSun
+  }],
+  ["roslyn", "Roslyn", "#FFF", {
+    stops: roslynStops,
+    mondayToFriday: roslynTimesMonFri,
+    lateFriday: roslynTimesFri,
+    saturday: roslynTimesSat,
+    sunday: roslynTimesSun
+  }],
+  ["rangiora", "Rangiora", "#FFF", {
+    stops: rangioraStops,
+    mondayToFriday: rangioraTimesMonFri,
+    lateFriday: rangioraTimesFri,
+    saturday: rangioraTimesSat,
+    sunday: rangioraTimesSun
+  },
+  ["brightwater", "Brightwater", "#FFF", {
+    stops: brightwaterStops,
+    mondayToFriday: brightwaterTimesMonFri,
+    lateFriday: brightwaterTimesFri,
+    saturday: brightwaterTimesSat,
+    sunday: brightwaterTimesSun
+  }],
+  ["fernlea", "Fernlea", "#FFF", {
+    stops: fernleaStops,
+    mondayToFriday: fernleaTimesMonFri,
+    lateFriday: fernleaTimesFri,
+    saturday: fernleaTimesSat,
+    sunday: fernleaTimesSun
+  }],
+  ["heights", "Heights", "#FFF", {
+    stops: heightsStops,
+    mondayToFriday: heightsTimesMonFri,
+    lateFriday: heightsTimesFri,
+    saturday: heightsTimesSat,
+    sunday: heightsTimesSun
+  }]
+];
+
+module.exports = table;
