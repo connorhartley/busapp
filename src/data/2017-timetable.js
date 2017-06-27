@@ -589,90 +589,90 @@ class Bus {
 // MODULE EXPORT
 
 var table = [
-  ["awapuni", "Awapuni", "#FFF", {
+  new Bus('awapuni', 'Awapuni', '#FFF', {
     stops: awapuniStops,
     mondayToFriday: awapuniTimesMonFri,
     lateFriday: awapuniTimesFri,
     saturday: awapuniTimesSat,
     sunday: awapuniTimesSun
-  }],
-  ["rubgy", "Rugby", "#FFF", {
-    stops: rugbyStops,
-    mondayToFriday: rubgyTimesMonFri,
-    lateFriday: rugbyTimesFri,
-    saturday: rugbyTimesSat,
-    sunday: rugbyTimesSun
-  }],
-  ["highbury", "Highbury", "#FFF", {
+  }),
+  new Bus('rugby', 'Rugby', '#FFF', {
+    stops: awapuniStops,
+    mondayToFriday: awapuniTimesMonFri,
+    lateFriday: awapuniTimesFri,
+    saturday: awapuniTimesSat,
+    sunday: awapuniTimesSun
+  }),
+  new Bus('highbury', 'Highbury', '#FFF', {
     stops: highburyStops,
     mondayToFriday: highburyTimesMonFri,
     lateFriday: highburyTimesFri,
     saturday: highburyTimesSat,
     sunday: highburyTimesSun
-  }],
-  ["takaro", "Takaro", "#FFF", {
+  }),
+  new Bus('takaro', 'Takaro', '#FFF', {
     stops: takaroStops,
     mondayToFriday: takaroTimesMonFri,
     lateFriday: takaroTimesFri,
     saturday: takaroTimesSat,
     sunday: takaroTimesSun
-  }],
-  ["cloverlea", "Cloverlea", "#FFF", {
+  }),
+  new Bus('cloverlea', 'Cloverlea', '#FFF', {
     stops: cloverleaStops,
     mondayToFriday: cloverleaTimesMonFri,
     lateFriday: cloverleaTimesFri,
     saturday: cloverleaTimesSat,
     sunday: cloverleaTimesSun
-  }],
-  ["milson", "Milson", "#FFF", {
+  }),
+  new Bus('milson', 'Milson', '#FFF', {
     stops: milsonStops,
     mondayToFriday: milsonTimesMonFri,
     lateFriday: milsonTimesFri,
     saturday: milsonTimesSat,
     sunday: milsonTimesSun
-  }],
-  ["rhodes", "Rhodes", "#FFF", {
+  }),
+  new Bus('rhodes', 'Rhodes', '#FFF', {
     stops: rhodesStops,
     mondayToFriday: rhodesTimesMonFri,
     lateFriday: rhodesTimesFri,
     saturday: rhodesTimesSat,
     sunday: rhodesTimesSun
-  }],
-  ["roslyn", "Roslyn", "#FFF", {
+  }),
+  new Bus('roslyn', 'Roslyn', '#FFF', {
     stops: roslynStops,
     mondayToFriday: roslynTimesMonFri,
     lateFriday: roslynTimesFri,
     saturday: roslynTimesSat,
     sunday: roslynTimesSun
-  }],
-  ["rangiora", "Rangiora", "#FFF", {
+  }),
+  new Bus('rangiora', 'Rangiora', '#FFF', {
     stops: rangioraStops,
     mondayToFriday: rangioraTimesMonFri,
     lateFriday: rangioraTimesFri,
     saturday: rangioraTimesSat,
     sunday: rangioraTimesSun
-  },
-  ["brightwater", "Brightwater", "#FFF", {
+  }),
+  new Bus('brightwater', 'Brightwater', '#FFF', {
     stops: brightwaterStops,
     mondayToFriday: brightwaterTimesMonFri,
     lateFriday: brightwaterTimesFri,
     saturday: brightwaterTimesSat,
     sunday: brightwaterTimesSun
-  }],
-  ["fernlea", "Fernlea", "#FFF", {
+  }),
+  new Bus('fernlea', 'Fernlea', '#FFF', {
     stops: fernleaStops,
     mondayToFriday: fernleaTimesMonFri,
     lateFriday: fernleaTimesFri,
     saturday: fernleaTimesSat,
     sunday: fernleaTimesSun
-  }],
-  ["heights", "Heights", "#FFF", {
+  }),
+  new Bus('heights', 'Heights', '#FFF', {
     stops: heightsStops,
     mondayToFriday: heightsTimesMonFri,
     lateFriday: heightsTimesFri,
     saturday: heightsTimesSat,
     sunday: heightsTimesSun
-  }]
+  })
 ];
 
 module.exports = table;
