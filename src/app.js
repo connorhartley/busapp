@@ -91,9 +91,9 @@ new Vue({
           isActive: false,
           isDeactivated: true
         },
-
-        busTimetable: timetable, 
       ],
+
+      busTimetable: timetable(),
     }
   },
   watch: {

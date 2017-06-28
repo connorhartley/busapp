@@ -16,6 +16,8 @@ var fs = require('fs');
 
 // Content Dashboard
 var templateContentDash = fs.readFileSync(__dirname + '/templates/content/content-dashboard.html', 'utf8');
+var templateDashLocation = fs.readFileSync(__dirname + '/templates/content/dashboard/content-set-location.html', 'utf8');
+var templateDashRoute = fs.readFileSync(__dirname + '/templates/content/dashboard/content-set-route.html', 'utf8');
 
 // Content Timetable
 var templateContentTimetable = fs.readFileSync(__dirname + '/templates/content/content-timetable.html', 'utf8');
@@ -33,6 +35,10 @@ var templateContentAccount = fs.readFileSync(__dirname + '/templates/content/con
 
 var contentDash = {
   template: templateContentDash
+}
+
+var dashLocation = {
+  template: templateDashLocation
 }
 
 var contentTimetable = {
@@ -56,7 +62,10 @@ var router = new VueRouter({
     {
       name: 'select',
       path: '/',
-      component: contentDash
+      components: {
+        default: contentDash,
+        dashboard: dashLocation
+      }
     },
     {
       name: 'timetable',
