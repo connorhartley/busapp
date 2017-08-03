@@ -94,12 +94,25 @@ new Vue({
       ],
 
       busTimetable: timetable(),
+
+      selection: {
+        yearId: "y2017",
+        routeId: "",
+        originId: 0,
+        destinationId: 0
+      },
+
+      date: new Date(),
     }
   },
   watch: {
     // Watch for the page index to change.
     pageIndex: function (newIndex, oldIndex) {
       this.updatePage(newIndex, oldIndex);
+    },
+
+    selection: function (newSelection, oldSelection) {
+      this.updateSelection(newSelection, oldSelection);
     }
   },
   methods: {
@@ -118,6 +131,26 @@ new Vue({
       } else {
         this.pageIndex = from;
       }
+    },
+
+    updateSelection: function (to, from) {
+      if (to instanceof {}) {
+        if (!(to.originId < to.destinationId) && to.originId != 0) {
+          var times;
+
+          switch (this.dayFromDate()) {
+            case 0: times = busTimetable[to.yearId][to.routeId].getSunday();
+            case 5: times = busTimetable[to.yearId][to.routeId].getFinalFriday();
+            case 6: times = busTimetable[to.yearId][to.routeId].getSaturday();
+            default: times = busTimetable[to.yearId][to.routeId].getMondayToFriday();
+          }
+        }
+      }
+    }
+  },
+  compute: {
+    dayFromDate: function() {
+      return this.date.getDay();
     }
   }
 });

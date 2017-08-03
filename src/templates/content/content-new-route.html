@@ -4,21 +4,21 @@
       <div class="busroute-drop">
         <button class="busroute-btn">Bus Route</button>
         <div class="busroute-content">
-          <button v-for="(busRoutes, index) in busTimetable['y2017']">{{ busRoutes[index].getName() }}</button>
+          <button v-for="(busRoutes, index) in busTimetable[selection.yearId]">{{ busRoutes[index].getName() }}</button>
         </div>
       </div>
       <div class="busorigin-drop">
         <button class="busorigin-btn">Origin Stop</button>
         <div class="busorigin-content">
           <!-- TODO: Instead of using the normal bus route table calculate the stops you can get that day using a computation. -->
-          <button v-for="busRoute in busTimetable['y2017']['']">{{ busRoute.getStops() }}</button>
+          <button v-for="busRoute in busTimetable[selection.yearId][selection.routeId].getStops()">{{ busRoute }}</button>
         </div>
       </div>
       <div class="busdestination-drop">
         <button class="busdestination-btn">Destination Stop</button>
         <div class="busdestination-content">
           <!-- TODO: Instead of using the normal bus route table calculate the stops you can get that day using a computation. -->
-          <button v-for="busRoute in busTimetable['y2017']['']">{{ busRoute.getStops() }}</button>
+          <button v-for="busRoute in busTimetable[selection.yearId][selection.routeId],getStops()">{{ busRoute }}</button>
         </div>
       </div>
     </div>
