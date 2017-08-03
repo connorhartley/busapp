@@ -6,7 +6,7 @@ var timetable2017 = require('./2017-timetable');
 
 function timetable () {
   return [
-    [ "2017", timetable2017 ]
+    y2017: timetable2017
   ];
 }
 
