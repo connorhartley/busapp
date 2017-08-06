@@ -98,6 +98,7 @@ new Vue({
       selection: {
         yearId: "y2017",
         routeId: "",
+        timeSelection: {},
         originId: 0,
         destinationId: 0
       },
@@ -143,6 +144,26 @@ new Vue({
             case 5: times = busTimetable[to.yearId][to.routeId].getFinalFriday();
             case 6: times = busTimetable[to.yearId][to.routeId].getSaturday();
             default: times = busTimetable[to.yearId][to.routeId].getMondayToFriday();
+          }
+
+          for (var time of times) {
+            if (time < this.dayFromDate()) {
+              times.delete(time);
+            }
+          }
+
+          for (var i = 0; i < times.length; i++) {
+            if (i < originId || i > destinationId) {
+              this.selection.timeSelection[i] = {
+                time: times[i],
+                active: true
+              }
+            } else {
+              this.selection.timeSelection[i] = {
+                time: times[i],
+                active: false
+              }
+            }
           }
         }
       }

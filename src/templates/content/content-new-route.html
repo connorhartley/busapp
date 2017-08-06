@@ -11,14 +11,14 @@
         <button class="busorigin-btn">Origin Stop</button>
         <div class="busorigin-content">
           <!-- TODO: Instead of using the normal bus route table calculate the stops you can get that day using a computation. -->
-          <button v-for="busRoute in busTimetable[selection.yearId][selection.routeId].getStops()">{{ busRoute }}</button>
+          <button v-for="busOrigin in selection.timeSelection">{{ busOrigin.time }}</button>
         </div>
       </div>
       <div class="busdestination-drop">
         <button class="busdestination-btn">Destination Stop</button>
         <div class="busdestination-content">
           <!-- TODO: Instead of using the normal bus route table calculate the stops you can get that day using a computation. -->
-          <button v-for="busRoute in busTimetable[selection.yearId][selection.routeId],getStops()">{{ busRoute }}</button>
+          <button v-for="busDest in selection.timeSelection">{{ busDest.time }}</button>
         </div>
       </div>
     </div>

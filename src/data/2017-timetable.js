@@ -42,7 +42,7 @@ class Bus {
   }
 
   getFinalFriday() {
-    return this.data.timesMonFri[id].concat(this.data.timesFri[id]);
+    return this.data.timesMonFri[id].push(this.data.timesFri[id]);
   }
 
   getSaturday() {
