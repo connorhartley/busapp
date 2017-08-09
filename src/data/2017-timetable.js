@@ -13,12 +13,7 @@ class Bus {
   constructor(id, name) {
     this.id = id;
     this.name = name;
-
-    if (data instanceof {}) {
-      this.data = data;
-    } else {
-      throw new Error("Invalid data type was recieved.");
-    }
+    this.data = data;
   }
 
   getId() {
@@ -56,12 +51,12 @@ class Bus {
 
 // MODULE EXPORT
 
-var table = {}
+var table = {};
 
 (function() {
   for (var i = 0; i < data.buses.length; i++) {
-    table[data.buses[i].id] = new Bus(data.buses[id].id, data.buses[id].name);
+    table[data.buses[i].id] = new Bus(data.buses[i].id, data.buses[i].name);
   }
-})
+})();
 
 module.exports = table;
