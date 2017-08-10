@@ -53,7 +53,8 @@ Vue.component('navigation-plate', {
 // Content Plate
 
 Vue.component('content-plate', {
-  template: templateContentPlate
+  template: templateContentPlate,
+  props: [ 'selection', 'busTimetable' ]
 });
 
 // Footer Plate

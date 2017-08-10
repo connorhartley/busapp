@@ -29490,8 +29490,8 @@ var VueRouter = require('vue-router');
 // @author Connor Hartley
 // @version 0.0.1
 
-// Content Dashboard
-var templateContentDash = "<div class=\"plate-container\">\r\n  <div class=\"content-plate\">\r\n    <div>\r\n      <div class=\"busroute-drop\">\r\n        <button class=\"busroute-btn\">Bus Route</button>\r\n        <div class=\"busroute-content\">\r\n          <button v-for=\"(busRoutes, index) in busTimetable[selection.yearId]\">{{ busRoutes[index].getName() }}</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"busorigin-drop\">\r\n        <button class=\"busorigin-btn\">Origin Stop</button>\r\n        <div class=\"busorigin-content\">\r\n          <!-- TODO: Instead of using the normal bus route table calculate the stops you can get that day using a computation. -->\r\n          <button v-for=\"busOrigin in selection.timeSelection\">{{ busOrigin.time }}</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"busdestination-drop\">\r\n        <button class=\"busdestination-btn\">Destination Stop</button>\r\n        <div class=\"busdestination-content\">\r\n          <!-- TODO: Instead of using the normal bus route table calculate the stops you can get that day using a computation. -->\r\n          <button v-for=\"busDest in selection.timeSelection\">{{ busDest.time }}</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"content-plate\"></div>\r\n</div>\r\n";
+// Content New Route
+var templateContentNewRoute = "<div class=\"plate-container\">\r\n  <div class=\"content-plate\">\r\n    <div>\r\n      <div class=\"busroute-drop\">\r\n        <button class=\"busroute-btn\">Bus Route</button>\r\n        <div class=\"busroute-content\">\r\n          <button v-for=\"(busRoutes, index) in busTimetable[selection.yearId]\">{{ busRoutes.getName() }}</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"busorigin-drop\">\r\n        <button class=\"busorigin-btn\">Origin Stop</button>\r\n        <div class=\"busorigin-content\">\r\n          <!-- TODO: Instead of using the normal bus route table calculate the stops you can get that day using a computation. -->\r\n          <button v-for=\"busOrigin in selection.timeSelection\">{{ busOrigin.time }}</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"busdestination-drop\">\r\n        <button class=\"busdestination-btn\">Destination Stop</button>\r\n        <div class=\"busdestination-content\">\r\n          <!-- TODO: Instead of using the normal bus route table calculate the stops you can get that day using a computation. -->\r\n          <button v-for=\"busDest in selection.timeSelection\">{{ busDest.time }}</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"content-plate\"></div>\r\n</div>\r\n";
 
 // Content Timetable
 var templateContentTimetable = "<div class=\"timetable\">\r\n  This is a Timetable\r\n</div>\r\n";
@@ -29507,8 +29507,9 @@ var templateContentAccount = "<div class=\"account\">\r\n  This is an Account\r\
 // @author Connor Hartley
 // @version 0.0.1
 
-var contentDash = {
-  template: templateContentDash
+var contentNewRoute = {
+  template: templateContentNewRoute,
+  props: [ 'selection', 'busTimetable' ]
 }
 
 var contentTimetable = {
@@ -29530,9 +29531,9 @@ var contentAccount = {
 var router = new VueRouter({
   routes: [
     {
-      name: 'select',
+      name: 'new',
       path: '/',
-      component: contentDash
+      component: contentNewRoute
     },
     {
       name: 'timetable',
@@ -29579,7 +29580,7 @@ var timetable = require('./data/timetable');
 var templateNavigationPlate = "<div class=\"plate-navigation navigation\">\r\n  <a href=\"#\"><div class=\"navigation-brand\">\r\n    <img src=\"./images/bus-small.png\">\r\n  </div></a>\r\n\r\n  <div class=\"navigation-menu\">\r\n    <a><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[0].isActive, 'fg-grey': pages[0].isDeactivated }\" v-on:click=\"changeTab(0)\">\r\n      {{ pages[0].displayId }}\r\n    </div></a>\r\n\r\n    <a><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[1].isActive, 'fg-grey': pages[1].isDeactivated }\" v-on:click=\"changeTab(1)\">\r\n      {{ pages[1].displayId }}\r\n    </div></a>\r\n\r\n    <a><div class=\"menu-element\" v-bind:class=\"{ 'bg-primary': pages[2].isActive, 'fg-grey': pages[2].isDeactivated }\" v-on:click=\"changeTab(2)\">\r\n      {{ pages[2].displayId }}\r\n    </div></a>\r\n  </div>\r\n</div>\r\n";
 
 // Content Plate
-var templateContentPlate = "<div class=\"plate-content content\">\r\n  <router-view></router-view>\r\n</div>\r\n";
+var templateContentPlate = "<div class=\"plate-content content\">\r\n  <router-view :selection=\"selection\" :bus-timetable=\"busTimetable\"></router-view>\r\n</div>\r\n";
 
 // Footer Plate
 var templateFooterPlate = "<div class=\"plate-footer footer\">\r\n  <a><div class=\"menu-element\">\r\n    Previous\r\n  </div></a>\r\n\r\n  <div class=\"menu-element\">\r\n    Made with ❤ by Connor Hartley\r\n  </div>\r\n\r\n  <a><div class=\"menu-element\">\r\n    Next\r\n  </div></a>\r\n</div>\r\n";
@@ -29607,7 +29608,8 @@ Vue.component('navigation-plate', {
 // Content Plate
 
 Vue.component('content-plate', {
-  template: templateContentPlate
+  template: templateContentPlate,
+  props: [ 'selection', 'busTimetable' ]
 });
 
 // Footer Plate

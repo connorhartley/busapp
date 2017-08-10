@@ -14,8 +14,8 @@ var fs = require('fs');
 // @author Connor Hartley
 // @version 0.0.1
 
-// Content Dashboard
-var templateContentDash = fs.readFileSync(__dirname + '/templates/content/content-dashboard.html', 'utf8');
+// Content New Route
+var templateContentNewRoute = fs.readFileSync(__dirname + '/templates/content/content-new-route.html', 'utf8');
 
 // Content Timetable
 var templateContentTimetable = fs.readFileSync(__dirname + '/templates/content/content-timetable.html', 'utf8');
@@ -31,8 +31,9 @@ var templateContentAccount = fs.readFileSync(__dirname + '/templates/content/con
 // @author Connor Hartley
 // @version 0.0.1
 
-var contentDash = {
-  template: templateContentDash
+var contentNewRoute = {
+  template: templateContentNewRoute,
+  props: [ 'selection', 'busTimetable' ]
 }
 
 var contentTimetable = {
@@ -54,9 +55,9 @@ var contentAccount = {
 var router = new VueRouter({
   routes: [
     {
-      name: 'select',
+      name: 'new',
       path: '/',
-      component: contentDash
+      component: contentNewRoute
     },
     {
       name: 'timetable',
