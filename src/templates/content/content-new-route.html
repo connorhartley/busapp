@@ -4,7 +4,7 @@
       <div class="busroute-drop">
         <button class="busroute-btn">Bus Route</button>
         <div class="busroute-content">
-          <button v-for="(busRoutes, index) in busTimetable[selection.yearId]">{{ busRoutes[index].getName() }}</button>
+          <button v-for="(busRoutes, index) in busTimetable[selection.yearId]">{{ busRoutes.getName() }}</button>
         </div>
       </div>
       <div class="busorigin-drop">

@@ -21,7 +21,7 @@
       <div class="solid-plate">
         <navigation-plate :page-index.sync="pageIndex" :pages="pages"></navigation-plate>
 
-        <content-plate></content-plate>
+        <content-plate :selection="selection" :bus-timetable="busTimetable"></content-plate>
 
         <footer-plate></footer-plate>
       </div>
