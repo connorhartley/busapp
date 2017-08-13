@@ -29491,13 +29491,7 @@ var VueRouter = require('vue-router');
 // @version 0.0.1
 
 // Content New Route
-var templateContentNewRoute = "<div class=\"plate-container\">\r\n  <div class=\"content-plate\">\r\n    <div>\r\n      <div class=\"busroute-drop\">\r\n        <button class=\"busroute-btn\">Bus Route</button>\r\n        <div class=\"busroute-content\">\r\n          <button v-for=\"(busRoutes, index) in busTimetable[selection.yearId]\">{{ busRoutes.getName() }}</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"busorigin-drop\">\r\n        <button class=\"busorigin-btn\">Origin Stop</button>\r\n        <div class=\"busorigin-content\">\r\n          <!-- TODO: Instead of using the normal bus route table calculate the stops you can get that day using a computation. -->\r\n          <button v-for=\"busOrigin in selection.timeSelection\">{{ busOrigin.time }}</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"busdestination-drop\">\r\n        <button class=\"busdestination-btn\">Destination Stop</button>\r\n        <div class=\"busdestination-content\">\r\n          <!-- TODO: Instead of using the normal bus route table calculate the stops you can get that day using a computation. -->\r\n          <button v-for=\"busDest in selection.timeSelection\">{{ busDest.time }}</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"content-plate\"></div>\r\n</div>\r\n";
-
-// Content Timetable
-var templateContentTimetable = "<div class=\"timetable\">\r\n  This is a Timetable\r\n</div>\r\n";
-
-// Content Account
-var templateContentAccount = "<div class=\"account\">\r\n  This is an Account\r\n</div>\r\n";
+var templateContentNewRoute = "<div class=\"route-container\">\r\n  <div class=\"route-content\">\r\n      <div class=\"dropdown\">\r\n        <a class=\"dropdown-btn\">Bus Route</a>\r\n        <ul class=\"dropdown-content\">\r\n          <li v-for=\"(busRouteEl, index) in busTimetable[year]\">\r\n            <router-link :to=\"routeForRoute(busRouteEl.getId())\">{{ busRouteEl.getName() }}</router-link>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div class=\"dropdown\">\r\n        <a class=\"dropdown-btn\">Time Range</a>\r\n        <ul class=\"dropdown-content\">\r\n          <li v-for=\"(busTime, index) in getTimesById(busRoute)\" v-if=\"busTime.length > 1\">\r\n            <router-link :to=\"routeForTime(index)\">{{ prettyTime(busTime[0]) }} - {{ prettyTime(busTime[busTime.length - 1]) }}</router-link>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div class=\"dropdown\">\r\n        <a class=\"dropdown-btn\">Origin Stop</a>\r\n        <ul class=\"dropdown-content\">\r\n          <li v-for=\"(busOrigin, index) in getStopsRange(getBusById(busRoute))\">\r\n            <router-link v-bind:class=\"{ outOfBounds: busOrigin.out }\" :to=\"routeForOrigin(index)\">{{ busOrigin.name }}</router-link>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div class=\"dropdown\">\r\n        <a class=\"dropdown-btn\">Destination Stop</a>\r\n        <ul class=\"dropdown-content\">\r\n          <li v-for=\"(busDest, index) in getStopsRange(getBusById(busRoute))\">\r\n            <router-link v-bind:class=\"{ outOfBounds: busDest.out }\" :to=\"routeForDest(index)\">{{ busDest.name }}</router-link>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n  </div>\r\n  <div class=\"route-content\"></div>\r\n</div>\r\n";
 
 // Components
 //
@@ -29507,17 +29501,170 @@ var templateContentAccount = "<div class=\"account\">\r\n  This is an Account\r\
 // @author Connor Hartley
 // @version 0.0.1
 
-var contentNewRoute = {
+var Plan = {
   template: templateContentNewRoute,
-  props: [ 'selection', 'busTimetable' ]
-}
+  name: 'new',
+  props: [ 'busTimetable' ],
+  data() {
+    return {
+      year: "y2017",
+      date: new Date(),
+      busRoute: "",
+      defaultRoute: "awapuni",
+      origin: 0,
+      destination: 0,
+      time: 0
+    }
+  },
+  created() {
+    this.checkData()
+  },
+  watch: {
+    $route: 'checkData'
+  },
+  methods: {
+    checkData() {
+      if (!this.$route.params.busRoute) {
+        this.busRoute = this.defaultRoute;
+        return;
+      } else {
+        if (!this.$route.params.origin || !this.$route.params.destination
+          || !this.$route.params.time) {
+            this.$router.replace({name: 'new', params: {
+              busRoute: this.$route.params.busRoute,
+              time: this.$route.params.time || 0,
+              origin: this.$route.params.origin || 0,
+              destination: this.$route.params.destination || 0
+            }});
+          }
+      }
 
-var contentTimetable = {
-  template: templateContentTimetable
-}
+      if (this.busRoute != this.$route.params.busRoute) {
+        this.$router.replace({name: 'new', params: {
+          busRoute: this.$route.params.busRoute,
+          time: 0,
+          origin: 0,
+          destination: 0
+        }});
 
-var contentAccount = {
-  template: templateContentAccount
+        this.time = 0;
+        this.origin = 0;
+        this.destination = 0;
+      } else {
+        this.time = this.$route.params.time;
+        this.origin = this.$route.params.origin;
+        this.destination = this.$route.params.destination;
+      }
+
+      this.busRoute = this.$route.params.busRoute
+    },
+
+    // Returns the bus route object by its id.
+    getBusById(id) {
+      return this.busTimetable[this.year][id];
+    },
+
+    getStopsRange(bus) {
+      var list = [];
+
+      for (var i = 0; i < bus.getStops().length; i++) {
+        if (this.origin != 0 && this.destination != 0) {
+          if (i < this.origin) {
+            list.push({
+              out: true,
+              name: bus.getStops()[i]
+            })
+          } else if (i > this.destination) {
+            list.push({
+              out: true,
+              name: bus.getStops()[i]
+            })
+          } else {
+            list.push({
+              out: false,
+              name: bus.getStops()[i]
+            })
+          }
+        } else {
+          list.push({
+            out: false,
+            name: bus.getStops()[i]
+          })
+        }
+      }
+
+      return list;
+    },
+
+    getTimesById(id) {
+      var day = this.date.getDay();
+      var times;
+
+      switch(day) {
+        case 0: return this.busTimetable[this.year][id].getSunday();
+        case 5: return this.busTimetable[this.year][id].getFinalFriday();
+        case 6: return this.busTimetable[this.year][id].getSaturday();
+        default: return this.busTimetable[this.year][id].getMondayToFriday();
+      }
+    },
+
+    // Gets the web address for a particular bus route destination
+    routeForTime(time) {
+      return {
+        name: 'new',
+        params: { busRoute: this.busRoute, time: time, origin: this.origin, destination: this.destination }
+      };
+    },
+
+    // Gets the web address for a particular bus route origin
+    routeForOrigin(origin) {
+      return {
+        name: 'new',
+        params: { busRoute: this.busRoute, time: this.time, origin: origin, destination: this.destination }
+      };
+    },
+
+    // Gets the web address for a particular bus route origin
+    routeForDest(dest) {
+      return {
+        name: 'new',
+        params: { busRoute: this.busRoute, time: this.time, origin: this.origin, destination: dest}
+      };
+    },
+
+    // Gets the web address for a particular bus route.
+    routeForRoute(busRoute) {
+      return {
+        name: 'new',
+        params: { busRoute: busRoute, time: this.time, origin: this.origin, destination: this.destination }
+      };
+    },
+
+    // TIME
+
+    prettyTime(time) {
+      var stringTime = '' + time;
+
+      var meridian = "pm";
+      var split = stringTime.split(".");
+      var hour = Number(split[0]);
+      var minutes = split[1] || "00";
+
+      if (minutes.length < 2) {
+        minutes += "0";
+      }
+
+      if (hour <= 12) {
+        meridian = "am";
+      }
+
+      if (hour > 12) {
+        hour = hour - 12;
+      }
+
+      return hour + "." + minutes + " " + meridian.toUpperCase()
+    }
+  }
 }
 
 // Router
@@ -29531,20 +29678,35 @@ var contentAccount = {
 var router = new VueRouter({
   routes: [
     {
-      name: 'new',
+      name: 'main',
       path: '/',
-      component: contentNewRoute
+      component: Plan
     },
     {
-      name: 'timetable',
-      path: '/timetable',
-      component: contentTimetable
+      name: 'new-route',
+      path: '/plan/:busRoute',
+      component: Plan
     },
     {
-      name: 'account',
-      path: '/account',
-      component: contentAccount
+      name: 'new-route-time',
+      path: '/plan/:busRoute/:time',
+      component: Plan
+    },
+    {
+      name: 'new-route-origin',
+      path: '/plan/:busRoute/:time/:origin/',
+      component: Plan
+    },
+    {
+      name: 'new',
+      path: '/plan/:busRoute/:time/:origin/:destination',
+      component: Plan
     }
+    // {
+    //   name: 'view',
+    //   path: '/view/:busRoute/:origin/:destination/:timeId',
+    //   component: View
+    // },
   ]
 });
 
@@ -29760,27 +29922,27 @@ class Bus {
   }
 
   getColour() {
-    return this.data.colors[id];
+    return this.data.colors[this.id];
   }
 
   getStops() {
-    return this.data.stops[id];
+    return this.data.stops[this.id];
   }
 
   getMondayToFriday() {
-    return this.data.timesMonFri[id];
+    return this.data.timesMonFri[this.id];
   }
 
   getFinalFriday() {
-    return this.data.timesMonFri[id].push(this.data.timesFri[id]);
+    return this.data.timesMonFri[this.id].push(this.data.timesFri[this.id]);
   }
 
   getSaturday() {
-    return this.data.timesSat[id];
+    return this.data.timesSat[this.id];
   }
 
   getSunday() {
-    return this.data.timesSun[id];
+    return this.data.timesSun[this.id];
   }
 }
 
