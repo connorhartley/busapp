@@ -122,14 +122,61 @@ var Plan = {
 
     getTimesById(id) {
       var day = this.date.getDay();
+      var hours = this.date.getHours();
+      var minutes = this.date.getMinutes();
       var times;
+      var list = [];
 
       switch(day) {
-        case 0: return this.busTimetable[this.year][id].getSunday();
-        case 5: return this.busTimetable[this.year][id].getFinalFriday();
-        case 6: return this.busTimetable[this.year][id].getSaturday();
-        default: return this.busTimetable[this.year][id].getMondayToFriday();
+        case 0: {
+          times = this.busTimetable[this.year][id].getSunday();
+          break;
+        }
+        case 5: {
+          times = this.busTimetable[this.year][id].getFinalFriday();
+          break;
+        }
+        case 6: {
+          times = this.busTimetable[this.year][id].getSaturday();
+          break;
+        }
+        default: {
+          times = this.busTimetable[this.year][id].getMondayToFriday();
+          break;
+        }
       }
+
+      var unavailable = 0;
+
+      for (var i = 0; i < times.length; i++) {
+        var firstTime = '' + times[i][0];
+
+        var split = firstTime.split(".");
+        if ((split[0] == hours && split[1] < minutes) || (split[0] < hours)) {
+          list.push({
+            out: true,
+            time: times[i]
+          })
+
+          unavailable += 1;
+        } else {
+          list.push({
+            out: false,
+            time: times[i]
+          })
+        }
+      }
+
+      list.reverse();
+
+      if (list.length < 1 || list.length === unavailable) {
+        list.unshift({
+          out: true,
+          time: [ "No available times today!" ]
+        })
+      }
+
+      return list;
     },
 
     // Gets the web address for a particular bus route destination
@@ -168,6 +215,7 @@ var Plan = {
 
     prettyTime(time) {
       var stringTime = '' + time;
+      if (!stringTime.includes(".") && !Number(stringTime)) return stringTime;
 
       var meridian = "pm";
       var split = stringTime.split(".");
@@ -187,6 +235,22 @@ var Plan = {
       }
 
       return hour + "." + minutes + " " + meridian.toUpperCase()
+    },
+
+    equals(first, second) {
+      return {
+        "bg-primary": first === second
+      };
+    }
+  },
+  computed: {
+    originInformation: function() {
+      if (this.getTimesById(this.busRoute)[this.time].time[this.origin] == null) return "Invalid time!"
+      return this.getStopsRange(this.getBusById(this.busRoute))[this.origin].name + " : " + this.prettyTime(this.getTimesById(this.busRoute)[this.time].time[this.origin]);
+    },
+    destinationInformation: function() {
+      if (this.getTimesById(this.busRoute)[this.time].time[this.destination] == null) return "Invalid time!"
+      return this.getStopsRange(this.getBusById(this.busRoute))[this.destination].name + " : " + this.prettyTime(this.getTimesById(this.busRoute)[this.time].time[this.destination]);
     }
   }
 }

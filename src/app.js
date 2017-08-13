@@ -75,8 +75,8 @@ new Vue({
 
       pages: [
         {
-          id: 'select',
-          displayId: 'Select',
+          id: 'new',
+          displayId: 'New',
           isActive: true,
           isDeactivated: false
         },
@@ -84,7 +84,7 @@ new Vue({
           id: 'timetable',
           displayId: 'Timetable',
           isActive: false,
-          isDeactivated: false
+          isDeactivated: true
         },
         {
           id: 'account',
@@ -94,17 +94,7 @@ new Vue({
         },
       ],
 
-      busTimetable: timetable(),
-
-      selection: {
-        yearId: "y2017",
-        routeId: "",
-        timeSelection: {},
-        originId: 0,
-        destinationId: 0
-      },
-
-      date: new Date(),
+      busTimetable: timetable()
     }
   },
   watch: {

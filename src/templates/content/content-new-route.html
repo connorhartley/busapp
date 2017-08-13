@@ -1,37 +1,47 @@
 <div class="route-container">
   <div class="route-content">
+    <!-- Google Map  -->
+  </div>
+  <div class="route-content">
+    <p style="text-align: center">Start: {{ originInformation }}</p>
+    <p style="text-align: center">Finish: {{ destinationInformation }}</p>
+  </div>
+  <div class="route-content">
       <div class="dropdown">
-        <a class="dropdown-btn">Bus Route</a>
+        <a class="dropdown-btn">Bus Route: {{ getBusById(busRoute).getName() }}</a>
         <ul class="dropdown-content">
-          <li v-for="(busRouteEl, index) in busTimetable[year]">
+          <li v-for="(busRouteEl, index) in busTimetable[year]" v-bind:class="equals(busRoute, busRouteEl.getId())">
             <router-link :to="routeForRoute(busRouteEl.getId())">{{ busRouteEl.getName() }}</router-link>
           </li>
         </ul>
       </div>
       <div class="dropdown">
-        <a class="dropdown-btn">Time Range</a>
+        <a v-if="getTimesById(busRoute)[time].time.length > 1" class="dropdown-btn">Time Range: {{ prettyTime(getTimesById(busRoute)[time].time[0]) }} - {{ prettyTime(getTimesById(busRoute)[time].time[getTimesById(busRoute)[time].time.length - 1]) }}</a>
+        <a v-if="getTimesById(busRoute)[time].time.length == 1" class="dropdown-btn">Time Range: {{ prettyTime(getTimesById(busRoute)[time].time[0]) }}</a>
         <ul class="dropdown-content">
-          <li v-for="(busTime, index) in getTimesById(busRoute)" v-if="busTime.length > 1">
-            <router-link :to="routeForTime(index)">{{ prettyTime(busTime[0]) }} - {{ prettyTime(busTime[busTime.length - 1]) }}</router-link>
+          <li v-for="(busTime, index) in getTimesById(busRoute)" v-if="busTime.time.length == 1" v-bind:class="equals(time, index)">
+            <router-link v-bind:class="{ outOfBounds: busTime.out }" :to="routeForTime(index)">{{ prettyTime(busTime.time[0]) }}</router-link>
+          </li>
+          <li v-for="(busTime, index) in getTimesById(busRoute)" v-if="busTime.time.length > 1" v-bind:class="equals(time, index)">
+            <router-link v-bind:class="{ outOfBounds: busTime.out }" :to="routeForTime(index)">{{ prettyTime(busTime.time[0]) }} - {{ prettyTime(busTime.time[busTime.time.length - 1]) }}</router-link>
           </li>
         </ul>
       </div>
       <div class="dropdown">
-        <a class="dropdown-btn">Origin Stop</a>
+        <a class="dropdown-btn">Origin Stop: {{ getStopsRange(getBusById(busRoute))[origin].name }}</a>
         <ul class="dropdown-content">
-          <li v-for="(busOrigin, index) in getStopsRange(getBusById(busRoute))">
+          <li v-for="(busOrigin, index) in getStopsRange(getBusById(busRoute))" v-bind:class="equals(origin, index)">
             <router-link v-bind:class="{ outOfBounds: busOrigin.out }" :to="routeForOrigin(index)">{{ busOrigin.name }}</router-link>
           </li>
         </ul>
       </div>
       <div class="dropdown">
-        <a class="dropdown-btn">Destination Stop</a>
+        <a class="dropdown-btn">Destination Stop: {{ getStopsRange(getBusById(busRoute))[destination].name }}</a>
         <ul class="dropdown-content">
-          <li v-for="(busDest, index) in getStopsRange(getBusById(busRoute))">
+          <li v-for="(busDest, index) in getStopsRange(getBusById(busRoute))" v-bind:class="equals(destination, index)">
             <router-link v-bind:class="{ outOfBounds: busDest.out }" :to="routeForDest(index)">{{ busDest.name }}</router-link>
           </li>
         </ul>
       </div>
   </div>
-  <div class="route-content"></div>
 </div>
