@@ -1,0 +1,91 @@
+/*************************************************************
+ * New Styles - Styles for the new route content.
+ *************************************************************/
+
+/*
+ * New Styles
+ *
+ * These styles are for the elements inside the
+ * new route container.
+ *
+ * @author Connor Hartley
+ * @version 0.0.1
+ */
+
+.route-container {
+  height: 60vh;
+  width: 100%;
+
+  display: flex;
+}
+
+.route-content {
+  height: 60vh;
+  width: 50%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* */
+
+.dropdown {
+  color: black;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  cursor: pointer;
+  border: none;
+  padding: 14px;
+
+  width: 450px;
+
+  /* For center alignment of the button text. */
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+
+  /* Text Styles */
+  color: white;
+  text-align: center;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  margin: 0;
+  background-color: #f9f9f9;
+  max-height: 200px;
+  width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 14px 16px;
+  z-index: 1;
+  overflow:auto;
+}
+
+.dropdown-content li a {
+  padding: 14px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+a {
+  color: black;
+}
+
+.outOfBounds {
+  color: red;
+  font-weight: bold;
+}
+
+.dropdown-content li:hover {
+  filter: brightness(0.65);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}

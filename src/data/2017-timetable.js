@@ -25,27 +25,27 @@ class Bus {
   }
 
   getColour() {
-    return this.data.colors[id];
+    return this.data.colors[this.id];
   }
 
   getStops() {
-    return this.data.stops[id];
+    return this.data.stops[this.id];
   }
 
   getMondayToFriday() {
-    return this.data.timesMonFri[id];
+    return this.data.timesMonFri[this.id];
   }
 
   getFinalFriday() {
-    return this.data.timesMonFri[id].push(this.data.timesFri[id]);
+    return this.data.timesMonFri[this.id].push(this.data.timesFri[this.id]);
   }
 
   getSaturday() {
-    return this.data.timesSat[id];
+    return this.data.timesSat[this.id];
   }
 
   getSunday() {
-    return this.data.timesSun[id];
+    return this.data.timesSun[this.id];
   }
 }
 

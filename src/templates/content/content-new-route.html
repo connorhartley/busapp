@@ -1,27 +1,37 @@
-<div class="plate-container">
-  <div class="content-plate">
-    <div>
-      <div class="busroute-drop">
-        <button class="busroute-btn">Bus Route</button>
-        <div class="busroute-content">
-          <button v-for="(busRoutes, index) in busTimetable[selection.yearId]">{{ busRoutes.getName() }}</button>
-        </div>
+<div class="route-container">
+  <div class="route-content">
+      <div class="dropdown">
+        <a class="dropdown-btn">Bus Route</a>
+        <ul class="dropdown-content">
+          <li v-for="(busRouteEl, index) in busTimetable[year]">
+            <router-link :to="routeForRoute(busRouteEl.getId())">{{ busRouteEl.getName() }}</router-link>
+          </li>
+        </ul>
       </div>
-      <div class="busorigin-drop">
-        <button class="busorigin-btn">Origin Stop</button>
-        <div class="busorigin-content">
-          <!-- TODO: Instead of using the normal bus route table calculate the stops you can get that day using a computation. -->
-          <button v-for="busOrigin in selection.timeSelection">{{ busOrigin.time }}</button>
-        </div>
+      <div class="dropdown">
+        <a class="dropdown-btn">Time Range</a>
+        <ul class="dropdown-content">
+          <li v-for="(busTime, index) in getTimesById(busRoute)" v-if="busTime.length > 1">
+            <router-link :to="routeForTime(index)">{{ prettyTime(busTime[0]) }} - {{ prettyTime(busTime[busTime.length - 1]) }}</router-link>
+          </li>
+        </ul>
       </div>
-      <div class="busdestination-drop">
-        <button class="busdestination-btn">Destination Stop</button>
-        <div class="busdestination-content">
-          <!-- TODO: Instead of using the normal bus route table calculate the stops you can get that day using a computation. -->
-          <button v-for="busDest in selection.timeSelection">{{ busDest.time }}</button>
-        </div>
+      <div class="dropdown">
+        <a class="dropdown-btn">Origin Stop</a>
+        <ul class="dropdown-content">
+          <li v-for="(busOrigin, index) in getStopsRange(getBusById(busRoute))">
+            <router-link v-bind:class="{ outOfBounds: busOrigin.out }" :to="routeForOrigin(index)">{{ busOrigin.name }}</router-link>
+          </li>
+        </ul>
       </div>
-    </div>
+      <div class="dropdown">
+        <a class="dropdown-btn">Destination Stop</a>
+        <ul class="dropdown-content">
+          <li v-for="(busDest, index) in getStopsRange(getBusById(busRoute))">
+            <router-link v-bind:class="{ outOfBounds: busDest.out }" :to="routeForDest(index)">{{ busDest.name }}</router-link>
+          </li>
+        </ul>
+      </div>
   </div>
-  <div class="content-plate"></div>
+  <div class="route-content"></div>
 </div>
