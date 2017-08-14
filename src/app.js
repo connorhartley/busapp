@@ -51,10 +51,9 @@ Vue.component('navigation-plate', {
 });
 
 // Content Plate
-
 Vue.component('content-plate', {
   template: templateContentPlate,
-  props: [ 'selection', 'busTimetable' ]
+  props: [ 'busTimetable' ]
 });
 
 // Footer Plate
@@ -73,6 +72,8 @@ new Vue({
     return {
       pageIndex: 0,
 
+      // Represents the possible pages you could access.
+      // Currently only new can be accessed. Others are disabled.
       pages: [
         {
           id: 'new',
@@ -94,6 +95,7 @@ new Vue({
         },
       ],
 
+      // Returns the bus timetable.
       busTimetable: timetable()
     }
   },
@@ -101,10 +103,6 @@ new Vue({
     // Watch for the page index to change.
     pageIndex: function (newIndex, oldIndex) {
       this.updatePage(newIndex, oldIndex);
-    },
-
-    selection: function (newSelection, oldSelection) {
-      this.updateSelection(newSelection, oldSelection);
     }
   },
   methods: {
@@ -124,45 +122,5 @@ new Vue({
         this.pageIndex = from;
       }
     },
-
-    updateSelection: function (to, from) {
-      if (to instanceof {}) {
-        if (!(to.originId < to.destinationId) && to.originId != 0) {
-          var times;
-
-          switch (this.dayFromDate()) {
-            case 0: times = busTimetable[to.yearId][to.routeId].getSunday();
-            case 5: times = busTimetable[to.yearId][to.routeId].getFinalFriday();
-            case 6: times = busTimetable[to.yearId][to.routeId].getSaturday();
-            default: times = busTimetable[to.yearId][to.routeId].getMondayToFriday();
-          }
-
-          for (var time of times) {
-            if (time < this.dayFromDate()) {
-              times.delete(time);
-            }
-          }
-
-          for (var i = 0; i < times.length; i++) {
-            if (i < originId || i > destinationId) {
-              this.selection.timeSelection[i] = {
-                time: times[i],
-                active: true
-              }
-            } else {
-              this.selection.timeSelection[i] = {
-                time: times[i],
-                active: false
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  compute: {
-    dayFromDate: function() {
-      return this.date.getDay();
-    }
   }
 });
