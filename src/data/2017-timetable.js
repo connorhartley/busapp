@@ -3,12 +3,12 @@ var _ = require('lodash')
 var dataTimes = require('./2017/bus-stops-and-times')
 var dataCoordinates = require('./2017/bus-coordinates')
 
+// Joins data for times and coordinates.
 var data = _.assign(dataTimes, dataCoordinates)
 
 // BUS CLASS
 
-// I have to use classes because my teacher said so ._.
-
+// Represents a bus route and its data.
 class Bus {
   constructor(id, name) {
     this.id = id;
@@ -61,6 +61,8 @@ class Bus {
 
 var table = {};
 
+// Generates all the bus obejcts dynamically by looping through the arrays
+// and adding the specific data, using its index.
 (function() {
   for (var i = 0; i < data.buses.length; i++) {
     table[data.buses[i].id] = new Bus(data.buses[i].id, data.buses[i].name);

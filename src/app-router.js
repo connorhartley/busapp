@@ -44,17 +44,24 @@ var Plan = {
     }
   },
   created() {
+    // Sets URL to default parameters, unless specified otherwise.
     this.checkData()
   },
   watch: {
+    // When the route for this component changes, call checkData.
+    // This is usually done using a router-link from a setting
+    // that has changed during a dropdown.
     $route: 'checkData'
   },
   methods: {
+    // Updates the URL and updates data to match response from URL parameters.
     checkData() {
       if (!this.$route.params.busRoute) {
+        // Default bus route is set if there is none in the URL and return.
         this.busRoute = this.defaultRoute;
         return;
       } else {
+        // If origin, destination or time are not set in the url, replace them with the defaults.
         if (!this.$route.params.origin || !this.$route.params.destination
           || !this.$route.params.time) {
             this.$router.replace({name: 'new', params: {
@@ -66,6 +73,12 @@ var Plan = {
           }
       }
 
+      // If the bus route doesn't equal the bus route in the url
+      // set all other values to their default.
+      // (This is for if you change route, so the code doesn't get confused
+      //  with a range that does not exist.)
+      //
+      // Otherwise update the data for time, origin and destination.
       if (this.busRoute != this.$route.params.busRoute) {
         this.$router.replace({name: 'new', params: {
           busRoute: this.$route.params.busRoute,
@@ -83,11 +96,14 @@ var Plan = {
         this.destination = this.$route.params.destination;
       }
 
+      // Update the data for bus route.
       this.busRoute = this.$route.params.busRoute
 
+      // Update the map.
       this.updateMap();
     },
 
+    // Updates the google map to show the latest user set information.
     updateMap() {
       // Markers
 
@@ -96,12 +112,15 @@ var Plan = {
 
       if (oTime == null || dTime == null) return;
 
+      // Sets marker maps to null to remove them from the map.
       this.markers.forEach((marker) => {
         marker.setMap(null);
       });
 
+      // Clears the markers array data.
       this.markers = [];
 
+      // Pushes a new google maps marker for the origin position.
       this.markers.push(new google.maps.Marker({
         map: this.map,
         position: this.getBusById(this.busRoute).getCoordinates()[this.origin],
@@ -109,6 +128,7 @@ var Plan = {
         icon: './images/red_MarkerA.png'
       }));
 
+      // Pushes a new google maps marker for the destination position.
       this.markers.push(new google.maps.Marker({
         map: this.map,
         position: this.getBusById(this.busRoute).getCoordinates()[this.destination],
@@ -117,12 +137,16 @@ var Plan = {
       }));
 
       // Paths
+
+      // Sets paths maps to null to remove them from the map.
       this.paths.forEach((path) => {
         path.setMap(null);
       });
 
+      // Clears the paths array data.
       this.paths = [];
 
+      // Pushes a new google maps polyline for the bus route path.
       this.paths.push(new google.maps.Polyline({
         map: this.map,
         path: this.getBusById(this.busRoute).getPaths(),
@@ -138,9 +162,12 @@ var Plan = {
       return this.busTimetable[this.year][id];
     },
 
+    // Returns an array of stops using the bus object.
     getStopsRange(bus) {
       var list = [];
 
+      // Loop that produces the red bolded stops that are not available
+      // in the stop range dropdowns.
       for (var i = 0; i < bus.getStops().length; i++) {
         if (this.origin != 0 && this.destination != 0) {
           if (i < this.origin) {
@@ -170,6 +197,7 @@ var Plan = {
       return list;
     },
 
+    // Returns an array of times reversed for time range selection using the bus id.
     getTimesById(id) {
       var day = this.date.getDay();
       var hours = this.date.getHours();
@@ -177,6 +205,7 @@ var Plan = {
       var times;
       var list = [];
 
+      // Returns the correct list of times for the specific days.
       switch(day) {
         case 0: {
           times = this.busTimetable[this.year][id].getSunday();
@@ -198,6 +227,8 @@ var Plan = {
 
       var unavailable = 0;
 
+      // Loop that produces the red bolded times that are not available
+      // in the time range dropdowns.
       for (var i = 0; i < times.length; i++) {
         var firstTime = '' + times[i][0];
 
@@ -217,8 +248,12 @@ var Plan = {
         }
       }
 
+      // Reverses the list.
       list.reverse();
 
+      // Adds "No available times today!" if there are no times
+      // in the list OR all the times in the list have become
+      // unavailable.
       if (list.length < 1 || list.length === unavailable) {
         list.unshift({
           out: true,
@@ -263,6 +298,8 @@ var Plan = {
 
     // TIME
 
+    // Takes a number or string, with a 24-hour time like `9.0`, `18.2` or `13.50` and returns a string with a
+    // prettier more understandable 12-hour time format with AM and PM.
     prettyTime(time) {
       var stringTime = '' + time;
       if (!stringTime.includes(".") && !Number(stringTime)) return stringTime;
@@ -276,17 +313,23 @@ var Plan = {
         minutes += "0";
       }
 
-      if (hour <= 12) {
+      // Changes meridian to am if it is before 12pm
+      if (hour < 12) {
         meridian = "am";
       }
 
+      // Changes 24-hour time to 12-hour time.
       if (hour > 12) {
         hour = hour - 12;
       }
 
+      // Wraps the modified values up into a nice human readable string.
       return hour + "." + minutes + " " + meridian.toUpperCase()
     },
 
+    // Checks if the first equals the second and returns a style
+    // for the background primary colour to be used for selections
+    // in the dropdowns.
     equals(first, second) {
       return {
         "bg-primary": first === second
@@ -294,16 +337,20 @@ var Plan = {
     }
   },
   computed: {
+    // Produces a string with the time and stop on it for the origin position.
     originInformation: function() {
       if (this.getTimesById(this.busRoute)[this.time].time[this.origin] == null) return "Invalid time!"
       return this.getStopsRange(this.getBusById(this.busRoute))[this.origin].name + " : " + this.prettyTime(this.getTimesById(this.busRoute)[this.time].time[this.origin]);
     },
+
+    // Produces a string with the time and stop on it for the destination position.
     destinationInformation: function() {
       if (this.getTimesById(this.busRoute)[this.time].time[this.destination] == null) return "Invalid time!"
       return this.getStopsRange(this.getBusById(this.busRoute))[this.destination].name + " : " + this.prettyTime(this.getTimesById(this.busRoute)[this.time].time[this.destination]);
     }
   },
   mounted: function() {
+    // Creates a google map object and uses it to define the data `map` when this component is mounted to the DOM.
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: -40.3569244,
