@@ -33,6 +33,9 @@ var Plan = {
     return {
       year: "y2017",
       date: new Date(),
+      map: null,
+      markers: [],
+      paths: [],
       busRoute: "",
       defaultRoute: "awapuni",
       origin: 0,
@@ -81,6 +84,53 @@ var Plan = {
       }
 
       this.busRoute = this.$route.params.busRoute
+
+      this.updateMap();
+    },
+
+    updateMap() {
+      // Markers
+
+      var oTime = this.getTimesById(this.busRoute)[this.time].time[this.origin];
+      var dTime = this.getTimesById(this.busRoute)[this.time].time[this.destination];
+
+      if (oTime == null || dTime == null) return;
+
+      this.markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+
+      this.markers = [];
+
+      this.markers.push(new google.maps.Marker({
+        map: this.map,
+        position: this.getBusById(this.busRoute).getCoordinates()[this.origin],
+        title: this.getStopsRange(this.getBusById(this.busRoute))[this.origin].name,
+        icon: './images/red_MarkerA.png'
+      }));
+
+      this.markers.push(new google.maps.Marker({
+        map: this.map,
+        position: this.getBusById(this.busRoute).getCoordinates()[this.destination],
+        title: this.getStopsRange(this.getBusById(this.busRoute))[this.destination].name,
+        icon: './images/blue_MarkerB.png'
+      }));
+
+      // Paths
+      this.paths.forEach((path) => {
+        path.setMap(null);
+      });
+
+      this.paths = [];
+
+      this.paths.push(new google.maps.Polyline({
+        map: this.map,
+        path: this.getBusById(this.busRoute).getPaths(),
+        geodesic: true,
+        strokeColor: this.getBusById(this.busRoute).getColour(),
+        strokeOpacity: 0.8,
+        strokeWeight: 3.5
+      }))
     },
 
     // Returns the bus route object by its id.
@@ -252,6 +302,19 @@ var Plan = {
       if (this.getTimesById(this.busRoute)[this.time].time[this.destination] == null) return "Invalid time!"
       return this.getStopsRange(this.getBusById(this.busRoute))[this.destination].name + " : " + this.prettyTime(this.getTimesById(this.busRoute)[this.time].time[this.destination]);
     }
+  },
+  mounted: function() {
+    this.map = new google.maps.Map(document.getElementById('map'), {
+      center: {
+        lat: -40.3569244,
+        lng: 175.6095111
+      },
+      zoom: 12,
+      gestureHandling: 'none',
+      disableDefaultUI: true,
+      disableDoubleClickZoom: true,
+      scrollwheel: false
+    });
   }
 }
 

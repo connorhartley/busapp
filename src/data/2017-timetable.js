@@ -24,6 +24,14 @@ class Bus {
     return this.name;
   }
 
+  getCoordinates() {
+    return this.data.stopCoordinates[this.id];
+  }
+
+  getPaths() {
+    return this.data.shapeCoordinates[this.id];
+  }
+
   getColour() {
     return this.data.colors[this.id];
   }

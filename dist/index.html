@@ -21,12 +21,13 @@
       <div class="solid-plate">
         <navigation-plate :page-index.sync="pageIndex" :pages="pages"></navigation-plate>
 
-        <content-plate :selection="selection" :bus-timetable="busTimetable"></content-plate>
+        <content-plate :bus-timetable="busTimetable"></content-plate>
 
         <footer-plate></footer-plate>
       </div>
     </div>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWHgmRX7kAXM5jJzDV3AsigS53PXx84zE" type="text/javascript"></script>
     <script src="./scripts/bundle.js"></script>
   </body>
 </html>
